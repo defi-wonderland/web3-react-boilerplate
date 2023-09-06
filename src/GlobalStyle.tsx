@@ -14,12 +14,13 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
   }
 
   body {
     font-size: 1.4rem;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f4f4f5;
+    background: ${({ theme }) => theme.backgroundPrimary};
+    color: ${({ theme }) => theme.textPrimary};
   }
 
   .ellipsis {

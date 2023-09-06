@@ -15,12 +15,10 @@ import { App } from '~/App';
 
 import '@rainbow-me/rainbowkit/styles.css';
 
-// const projectId = ''; // temporary
-
 const { chains, publicClient } = configureChains(
   [localhost],
   [
-    // alchemyProvider({ apiKey: VITE_ALCHEMY_KEY! }),
+    // alchemyProvider({ apiKey: VITE_ALCHEMY_KEY }),
     publicProvider(),
   ],
   { batch: { multicall: true } },
@@ -31,8 +29,8 @@ const connectors = connectorsForWallets([
     groupName: 'Recommended',
     wallets: [
       injectedWallet({ chains }),
-      // rainbowWallet({ projectId, chains }),
-      // walletConnectWallet({ projectId, chains }),
+      // rainbowWallet({ VITE_WALLETCONNECT_PROJECT_ID, chains }),
+      // walletConnectWallet({ VITE_WALLETCONNECT_PROJECT_ID, chains }),
     ],
   },
 ]);

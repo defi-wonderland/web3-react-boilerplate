@@ -4,6 +4,7 @@ import { Landing } from '~/pages';
 import { ScrollToTop } from '~/hooks';
 import { AppLayout } from '~/containers';
 import { Themable } from '~/components';
+import { StateProvider } from './providers';
 import GlobalStyle from '~/GlobalStyle';
 
 const AppRouter = () => {
@@ -11,6 +12,7 @@ const AppRouter = () => {
     <Routes>
       <Route element={<AppLayout />}>
         <Route path='/' element={<Landing />} />
+
         {/* <Route path='/requests' element={<Requests />} /> */}
         {/* <Route path='/faq' element={<Faq />} /> */}
         {/* <Route path='/about' element={<About />} /> */}
@@ -21,10 +23,12 @@ const AppRouter = () => {
 
 export const App = () => {
   return (
-    <Themable>
-      <GlobalStyle />
-      <ScrollToTop />
-      <AppRouter />
-    </Themable>
+    <StateProvider>
+      <Themable>
+        <GlobalStyle />
+        <ScrollToTop />
+        <AppRouter />
+      </Themable>
+    </StateProvider>
   );
 };
