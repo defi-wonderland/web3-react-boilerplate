@@ -1,14 +1,10 @@
 {
-  "name": "defi-react-boilerplate-private",
+  "name": "web3-react-boilerplate-private",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "license": "AGPL-3.0-only",
+  "license": "MIT",
   "author": "Wonderland",
-  "contributors": [
-    "0xArdy (https://github.com/0xArdy)",
-    "turtlemoji (https://github.com/turtlemoji)"
-  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
