@@ -18,6 +18,11 @@ import '@rainbow-me/rainbowkit/styles.css';
 const { chains, publicClient } = configureChains(
   [localhost],
   [
+    /* 
+        Put your provider here
+        More info: https://wagmi.sh/react/providers/configuring-chains
+    */
+
     // alchemyProvider({ apiKey: VITE_ALCHEMY_KEY }),
     publicProvider(),
   ],
@@ -28,9 +33,14 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
-      injectedWallet({ chains }),
+      /* 
+          Put your wallet connectors here
+          More info: https://wagmi.sh/react/connectors/injected
+      */
+
       // rainbowWallet({ VITE_WALLETCONNECT_PROJECT_ID, chains }),
       // walletConnectWallet({ VITE_WALLETCONNECT_PROJECT_ID, chains }),
+      injectedWallet({ chains }),
     ],
   },
 ]);

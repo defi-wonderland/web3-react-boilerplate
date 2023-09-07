@@ -1,6 +1,8 @@
 import merge from 'lodash.merge';
 import { darkTheme, Theme } from '@rainbow-me/rainbowkit';
 
+// Configure your rainbowkit custom theme here.
+// More info: https://www.rainbowkit.com/docs/custom-theme
 export const customTheme = merge(darkTheme(), {
   blurs: {
     // modalOverlay: '...',
