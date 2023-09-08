@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
   .custom-scrollbar::-webkit-scrollbar {
     width: 0.6rem;
-    height: 0%.6rem;;
+    height: 0.6rem;
     background: inherit;
     background: ${({ theme }) => theme.backgroundPrimary};
   }
