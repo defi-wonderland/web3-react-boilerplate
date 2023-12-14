@@ -28,8 +28,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.15.0",
-    "viem": "1.9.2",
-    "wagmi": "1.3.10"
+    "viem": "1.19.15",
+    "wagmi": "1.4.12"
   },
   "devDependencies": {
     "@defi-wonderland/crypto-husky-checks": "1.3.0",
