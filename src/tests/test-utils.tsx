@@ -3,45 +3,49 @@
 import React from 'react';
 import { afterEach } from 'vitest';
 import { HashRouter } from 'react-router-dom';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { localhost } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { injectedWallet } from '@rainbow-me/rainbowkit/wallets';
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WagmiProvider, http, createConfig } from 'wagmi';
+import { localhost } from 'wagmi/chains';
 
 // testing
 import { cleanup, render } from '@testing-library/react';
 
-const { chains, publicClient } = configureChains(
-  [localhost],
+const connectors = connectorsForWallets(
   [
-    // alchemyProvider({ apiKey: VITE_ALCHEMY_KEY! }),
-    publicProvider(),
+    {
+      groupName: 'Recommended',
+      wallets: [injectedWallet],
+    },
   ],
+  {
+    appName: 'Web3 React boilerplate',
+    projectId: '',
+  },
 );
 
-const connectors = connectorsForWallets([
-  {
-    groupName: 'Recommended',
-    wallets: [injectedWallet({ chains })],
+const config = createConfig({
+  chains: [localhost],
+  transports: {
+    [localhost.id]: http(),
   },
-]);
-
-const wagmiConfig = createConfig({
-  autoConnect: true,
+  batch: { multicall: true },
   connectors,
-  publicClient,
 });
+
+const queryClient = new QueryClient();
 
 const AllTheProviders = ({ children }: { children: React.ReactElement }) => {
   // wrap provider(s) here if needed
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <HashRouter>{children}</HashRouter>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
+          <HashRouter>{children}</HashRouter>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 };
 
