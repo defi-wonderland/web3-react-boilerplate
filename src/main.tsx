@@ -2,62 +2,62 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { injectedWallet, rainbowWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
-
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
+import '@rainbow-me/rainbowkit/styles.css';
+import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { rainbowWallet, walletConnectWallet, injectedWallet } from '@rainbow-me/rainbowkit/wallets';
+import { WagmiProvider, http, createConfig } from 'wagmi';
 import { localhost } from 'wagmi/chains';
 
-import { customTheme } from '~/components';
 import { getConfig } from './config';
+
 import { App } from '~/App';
+import { customTheme } from '~/components';
 
-import '@rainbow-me/rainbowkit/styles.css';
-
-const { PROJECT_ID, ALCHEMY_KEY } = getConfig();
-
-const { chains, publicClient } = configureChains(
-  [localhost],
-  [alchemyProvider({ apiKey: ALCHEMY_KEY }), publicProvider()],
-  { batch: { multicall: true } },
-);
+const { PROJECT_ID } = getConfig();
 
 const getWallets = () => {
   if (PROJECT_ID) {
-    return [
-      injectedWallet({ chains }),
-      rainbowWallet({ projectId: PROJECT_ID, chains }),
-      walletConnectWallet({ projectId: PROJECT_ID, chains }),
-    ];
+    return [injectedWallet, rainbowWallet, walletConnectWallet];
   } else {
-    return [injectedWallet({ chains })];
+    return [injectedWallet];
   }
 };
 
-const connectors = connectorsForWallets([
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: getWallets(),
+    },
+  ],
   {
-    groupName: 'Recommended',
-    wallets: getWallets(),
+    appName: 'Web3 React boilerplate',
+    projectId: PROJECT_ID,
   },
-]);
+);
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
+const config = createConfig({
+  chains: [localhost],
+  transports: {
+    [localhost.id]: http(),
+  },
+  batch: { multicall: true },
   connectors,
-  publicClient,
 });
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider theme={customTheme} chains={chains}>
-        <HashRouter>
-          <App />
-        </HashRouter>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={customTheme}>
+          <HashRouter>
+            <App />
+          </HashRouter>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>,
 );
