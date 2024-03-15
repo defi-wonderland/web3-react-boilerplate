@@ -1,18 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
-
+import { AppProps } from 'next/app';
+import { Themable } from '~/components';
+import { ScrollToTop } from '~/hooks';
+import { StateProvider } from '~/providers';
 import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { rainbowWallet, walletConnectWallet, injectedWallet } from '@rainbow-me/rainbowkit/wallets';
 import { WagmiProvider, http, createConfig } from 'wagmi';
 import { localhost } from 'wagmi/chains';
+import { getConfig } from '../config';
 
-import { getConfig } from './config';
-
-import { App } from '~/App';
-import { customTheme } from '~/components';
+import { customTheme } from '~/components'; // Adjust the path as necessary
 
 const { PROJECT_ID } = getConfig();
 
@@ -48,16 +46,21 @@ const config = createConfig({
 
 const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={customTheme}>
-          <HashRouter>
-            <App />
-          </HashRouter>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  </React.StrictMode>,
-);
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <StateProvider>
+      <Themable>
+        <ScrollToTop />
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider theme={customTheme}>
+              <Component {...pageProps} />
+            </RainbowKitProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </Themable>
+    </StateProvider>
+  );
+}
+
+export default MyApp;

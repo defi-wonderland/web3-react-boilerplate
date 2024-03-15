@@ -13,11 +13,25 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "@typescript-eslint"],
+  settings: {
+    react: {
+      version: "detect", // Automatically detect the React version
+    },
+  },
   rules: {
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
     ],
+    // Additional rules can be added here
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "react/prop-types": "off", // Turn off prop-types rule for TypeScript files
+      },
+    },
+  ],
 };

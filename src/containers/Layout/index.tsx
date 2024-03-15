@@ -1,13 +1,16 @@
-import { Outlet } from 'react-router-dom';
-
+import { ReactNode } from 'react';
 import { Footer } from '~/containers/Footer';
 import { Header } from '~/containers/Header';
 
-export const AppLayout = () => {
+interface AppLayoutProps {
+  children: ReactNode;
+}
+
+export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <>
       <Header />
-      <Outlet />
+      {children}
       <Footer />
     </>
   );
