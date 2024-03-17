@@ -5,6 +5,9 @@
   "type": "module",
   "license": "MIT",
   "author": "Wonderland",
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next",
     "build": "tsc && next build",
