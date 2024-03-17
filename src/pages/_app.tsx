@@ -10,8 +10,7 @@ import { WagmiProvider, http, createConfig } from 'wagmi';
 import { localhost } from 'wagmi/chains';
 import { getConfig } from '../config';
 
-import { customTheme } from '~/components'; // Adjust the path as necessary
-
+import { customTheme } from '~/components';
 const { PROJECT_ID } = getConfig();
 
 const getWallets = () => {

@@ -22,7 +22,7 @@
     "plugins": [{ "name": "next" }],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["src/*"]
     }
   },
   "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
