@@ -1,16 +1,17 @@
 import { AppProps } from 'next/app';
-import { Themable } from '~/components';
-import { ScrollToTop } from '~/hooks';
-import { StateProvider } from '~/providers';
 import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { rainbowWallet, walletConnectWallet, injectedWallet } from '@rainbow-me/rainbowkit/wallets';
 import { WagmiProvider, http, createConfig } from 'wagmi';
 import { localhost } from 'wagmi/chains';
-import { getConfig } from '../config';
 
+import { Themable } from '~/components';
+import { ScrollToTop } from '~/hooks';
+import { StateProvider } from '~/providers';
+import { getConfig } from '../config';
 import { customTheme } from '~/components';
+
 const { PROJECT_ID } = getConfig();
 
 const getWallets = () => {

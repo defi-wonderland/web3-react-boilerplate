@@ -16,10 +16,10 @@ export const Header = () => {
   };
 
   return (
-    <div>
+    <header>
       <h1>Logo</h1>
       <button onClick={handleThemeChange}>{theme === 'dark' ? '🌞' : '🌕'}</button>
       <ConnectButton />
-    </div>
+    </header>
   );
 };
