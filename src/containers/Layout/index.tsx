@@ -1,11 +1,12 @@
-import { ReactNode } from 'react';
+import { ReactNode, FunctionComponent } from 'react';
 import { Header, Footer } from '~/containers';
 
 interface AppLayoutProps {
   children: ReactNode;
 }
 
-export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+const AppLayout: FunctionComponent<AppLayoutProps> = (props) => {
+  const { children } = props;
   return (
     <>
       <Header />
@@ -14,3 +15,5 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     </>
   );
 };
+
+export { AppLayout };
