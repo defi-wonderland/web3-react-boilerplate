@@ -1,14 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { ReactNode, FunctionComponent } from 'react';
+import { Header, Footer } from '~/containers';
 
-import { Footer } from '~/containers/Footer';
-import { Header } from '~/containers/Header';
+interface AppLayoutProps {
+  children: ReactNode;
+}
 
-export const AppLayout = () => {
+const AppLayout: FunctionComponent<AppLayoutProps> = (props) => {
+  const { children } = props;
   return (
     <>
       <Header />
-      <Outlet />
+      {children}
       <Footer />
     </>
   );
 };
+
+export { AppLayout };
