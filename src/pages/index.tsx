@@ -1,12 +1,16 @@
-import { Landing } from '~/containers';
-import { AppLayout } from '~/containers';
+import Head from 'next/head';
 
-const HomePage = () => {
+import { Landing } from '~/containers';
+
+const Home = () => {
   return (
-    <AppLayout>
+    <>
+      <Head>
+        <title>Web3 Boilerplate</title>
+      </Head>
       <Landing />
-    </AppLayout>
+    </>
   );
 };
 
-export default HomePage;
+export default Home;
