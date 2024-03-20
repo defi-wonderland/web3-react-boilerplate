@@ -1,8 +1,15 @@
+'use client';
+import type { ReactNode } from 'react';
+
 import { StateProvider } from './StateProvider';
 import { ThemeProvider } from './ThemeProvider';
 import { Web3ModalProvider } from './Web3ModalProvider';
 
-export const Providers = ({ children }: { children: React.ReactElement }) => {
+type Props = {
+  children: ReactNode;
+};
+
+export const Providers = ({ children }: Props) => {
   return (
     <ThemeProvider>
       <StateProvider>

@@ -64,7 +64,9 @@ const ResponsiveDisclaimer = styled('div')(() => {
     textAlign: 'start',
     fontSize: '1.6rem',
     padding: '1rem 0.8rem 1rem',
-
+    '@media (max-width: 600px)': {
+      display: 'block',
+    },
     p: {
       padding: '1rem 0',
       margin: 0,
