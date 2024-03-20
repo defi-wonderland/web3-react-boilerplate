@@ -1,4 +1,5 @@
 import { ReactNode, FunctionComponent } from 'react';
+
 import { Header, Footer } from '~/containers';
 
 interface AppLayoutProps {

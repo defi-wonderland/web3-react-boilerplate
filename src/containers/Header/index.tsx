@@ -1,25 +1,39 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useStateContext } from '~/hooks';
-import { THEME_KEY } from '~/utils';
+import { styled } from '@mui/material/styles';
+import { IconButton } from '@mui/material';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+
+import { useCustomTheme } from '~/hooks/useTheme';
+import { Theme } from '~/types';
 
 export const Header = () => {
-  const { setTheme, theme } = useStateContext();
-
-  const handleThemeChange = () => {
-    if (theme === 'light') {
-      localStorage.setItem(THEME_KEY, 'dark');
-      setTheme('dark');
-    } else {
-      localStorage.setItem(THEME_KEY, 'light');
-      setTheme('light');
-    }
-  };
+  const { changeTheme, currentTheme, theme } = useCustomTheme();
 
   return (
-    <header>
-      <h1>Logo</h1>
-      <button onClick={handleThemeChange}>{theme === 'dark' ? '🌞' : '🌕'}</button>
+    <StyledHeader theme={currentTheme}>
+      <Logo>Logo</Logo>
+      <IconButton onClick={changeTheme}>{theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}</IconButton>
       <ConnectButton />
-    </header>
+    </StyledHeader>
   );
 };
+
+//Styles
+
+const StyledHeader = styled('header')(({ theme }: { theme: Theme }) => ({
+  display: 'flex',
+  height: '8rem',
+  padding: '0 8rem',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  backgroundColor: theme.backgroundSecondary,
+  width: '100vw',
+  zIndex: 100,
+}));
+
+const Logo = styled('h1')({
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+});
