@@ -11,7 +11,6 @@ export interface Theme {
   textFontFamily: string;
   borderRadius: string;
   secondaryBorderRadius: string;
-  headerBackground: string;
   border: string;
 }
 

@@ -15,12 +15,12 @@
 3. Install the project dependencies by running:
 
    ```bash
-   yarn install
+   pnpm install
    ```
 
 ## Available Scripts
 
-Available scripts that can be run using `yarn`:
+Available scripts that can be run using `pnpm`:
 
 | Script         | Description                                                  |
 | -------------- | ------------------------------------------------------------ |
@@ -33,8 +33,8 @@ Available scripts that can be run using `yarn`:
 | `prettier:fix` | Format code using Prettier and automatically fix issues.     |
 | `format`       | Run Prettier and ESLint to format and fix code issues.       |
 | `format:check` | Check code formatting and linting without making changes.    |
-| `test`         | Run unit tests using - .                                 |
-| `test:watch`   | Run - in watch mode.                                    |
+| `test`         | Run tests using Cypress                                 |
+| `test:watch`   | Run Cypress in watch mode.                                    |
 
 ## Technologies Used
 
