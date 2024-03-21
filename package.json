@@ -1,5 +1,5 @@
 {
-  "name": "web3-react-boilerplate-private",
+  "name": "web3-react-boilerplate",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,7 +20,8 @@
     "format": "yarn run prettier:fix && yarn run lint:fix",
     "format:check": "yarn run prettier && yarn run lint",
     "prepare": "husky install && wonderland-crypto-husky-checks install",
-    "test": "yarn cypress run"
+    "test": "yarn cypress run",
+    "test:watch": "yarn cypress open"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
