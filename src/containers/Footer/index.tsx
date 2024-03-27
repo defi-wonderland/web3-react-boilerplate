@@ -23,7 +23,7 @@ const FooterContainer = styled('footer')(() => {
     justifyContent: 'space-between',
     backgroundColor: currentTheme.backgroundSecondary,
     borderTop: currentTheme.border,
-    width: '100vw',
+    width: '100%',
   };
 });
 

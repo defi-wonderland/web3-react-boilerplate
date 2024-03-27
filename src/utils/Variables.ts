@@ -20,3 +20,10 @@ export const fontSize = {
   MEDIUM: '1.4rem',
   SMALL: '1.2rem',
 };
+
+export const zIndex = {
+  HEADER: 100,
+  MODAL: 200,
+  BACKDROP: -1,
+  TOAST: 500,
+};
