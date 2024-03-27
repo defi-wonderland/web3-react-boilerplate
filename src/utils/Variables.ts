@@ -27,3 +27,8 @@ export const zIndex = {
   BACKDROP: -1,
   TOAST: 500,
 };
+
+export const height = {
+  FOOTER: '8rem',
+  HEADER: '8rem',
+};

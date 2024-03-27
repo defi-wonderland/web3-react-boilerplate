@@ -1,5 +1,7 @@
 import { styled } from '@mui/material/styles';
 
+import { height } from '~/utils';
+
 export const Landing = () => {
   return (
     <LandingContainer>
@@ -11,7 +13,7 @@ export const Landing = () => {
 const LandingContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  height: 'calc(100vh - 16rem)',
+  height: `calc(100vh - (${height.HEADER} + ${height.FOOTER}))`,
   padding: '0 8rem',
   alignItems: 'center',
   justifyContent: 'center',
