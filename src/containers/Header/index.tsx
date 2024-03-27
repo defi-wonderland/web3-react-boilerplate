@@ -5,7 +5,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { useCustomTheme } from '~/hooks/useTheme';
-import { zIndex } from '~/utils';
+import { zIndex, HEADER_HEIGHT } from '~/utils';
 
 export const Header = () => {
   const { changeTheme, theme } = useCustomTheme();
@@ -24,7 +24,7 @@ const StyledHeader = styled('header')(() => {
   const { currentTheme } = useCustomTheme();
   return {
     display: 'flex',
-    height: '8rem',
+    height: `${HEADER_HEIGHT}rem`,
     padding: '0 8rem',
     alignItems: 'center',
     justifyContent: 'space-between',
