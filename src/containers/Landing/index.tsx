@@ -2,12 +2,10 @@ import { styled } from '@mui/material/styles';
 
 import { MAIN_HEIGHT } from '~/utils';
 
-console.log(MAIN_HEIGHT);
-
 export const Landing = () => {
   return (
     <LandingContainer>
-      <h1>Web3 React Boilerplate</h1>
+      <h1 data-testid='boilerplate-title'>Web3 React Boilerplate</h1>
     </LandingContainer>
   );
 };
