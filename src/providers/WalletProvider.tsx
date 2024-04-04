@@ -13,7 +13,7 @@ type Props = {
 
 const queryClient = new QueryClient();
 
-export function Web3ModalProvider({ children }: Props) {
+export function WalletProvider({ children }: Props) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>

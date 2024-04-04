@@ -87,3 +87,12 @@ jobs:
 
       - name: Run Tests
         run: yarn test
+    
+      - name: Start Application
+        run: yarn start
+
+      - name: Run Cypress E2E Tests
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn start
+          wait-on: 'http://localhost:3000'
