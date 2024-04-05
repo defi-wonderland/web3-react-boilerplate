@@ -1,5 +1,4 @@
-
-name: Build and Test
+name: Build and Format
 
 on:
   pull_request:
@@ -11,32 +10,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: "21.4"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Get pnpm cache directory path
-        id: pnpm-cache-dir-path
-        run: echo "::set-output name=dir::$(pnpm cache dir)"
-
-      - uses: actions/cache@v3
-        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          node-version: '21.4'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
 
       - name: Install project dependencies
-        run: pnpm --prefer-offline
-        id: install
+        run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
 
       - name: Build project dependencies
         run: pnpm run build
-        id: build
+        env:
+          NEXT_PUBLIC_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_PROJECT_ID }}
 
   check:
     name: Check for crypto
@@ -54,70 +45,46 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    name: Lint and Test
-    runs-on: ubuntu-latest
+   name: Lint, Unit Test, and E2E Test
+   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "21.4"
-          registry-url: "https://registry.npmjs.org"
+   steps:
+     - uses: actions/checkout@v3
 
-      - name: Get pnpm cache directory path
-        id: pnpm-cache-dir-path
-        run: echo "::set-output name=dir::$(pnpm cache dir)"
+     - name: Install Node
+       uses: actions/setup-node@v3
+       with:
+        node-version: '21.4'
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'pnpm'
 
-      - uses: actions/cache@v3
-        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
 
-      - name: Install project dependencies
-        run: pnpm --prefer-offline
-        id: install
+     - name: Install project dependencies
+       run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
 
-      - name: Run Prettier
-        run: pnpm prettier
+     - name: Run Prettier
+       run: pnpm run prettier
 
-      - name: Run Linter
-        run: pnpm lint
+     - name: Run Linter
+       run: pnpm run lint
 
-      - name: Run Tests
-        run: pnpm test
-  
-  e2e:
-    name: Cypress E2E Tests
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
+     - name: Run Unit Tests
+       run: pnpm test
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: 'pnpm'
+     - name: Build project for production
+       run: pnpm run build
 
-      - name: Install PNPM
-        run: npm install -g pnpm
+     - name: Start Server for E2E Tests
+       run: pnpm exec next start -p ${{ env.PORT }} &
+       env:
+        PORT: 3000
 
-      - name: Install project dependencies
-        run: pnpm install --frozen-lockfile
+     - name: Sleep for 30s
+       run: sleep 30
 
-      - name: Start Server
-        run: pnpm run start:prod &
-        env:
-          PORT: 3000 
+     - name: Cypress E2E Tests
+       uses: cypress-io/github-action@v2
+       with:
+        wait-on: 'http://localhost:3000'
+        wait-on-timeout: 60
 
-      - name: Sleep for 30s
-        run: sleep 30
-
-      - name: Cypress E2E Tests
-        uses: cypress-io/github-action@v2
-        with:
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 60 
