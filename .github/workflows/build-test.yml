@@ -1,3 +1,4 @@
+
 name: Build and Test
 
 on:
@@ -7,32 +8,42 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: "21.4" 
-          cache: 'pnpm'
+          node-version: "21.4"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Get pnpm cache directory path
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm cache dir)"
+
+      - uses: actions/cache@v3
+        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install project dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm --prefer-offline
+        id: install
 
-      - name: Build project
+      - name: Build project dependencies
         run: pnpm run build
+        id: build
 
   check:
     name: Check for crypto
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "21.4"
-          cache: 'pnpm'
 
       - name: Check for crypto
         uses: defi-wonderland/check-crypto-action@v1
@@ -45,27 +56,39 @@ jobs:
   test:
     name: Lint and Test
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: "21.4"
-          cache: 'pnpm'
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Get pnpm cache directory path
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm cache dir)"
+
+      - uses: actions/cache@v3
+        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install project dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm --prefer-offline
+        id: install
 
       - name: Run Prettier
-        run: pnpm run prettier
+        run: pnpm prettier
 
       - name: Run Linter
-        run: pnpm run lint
+        run: pnpm lint
 
       - name: Run Tests
         run: pnpm test
-
+  
   e2e:
     name: Cypress E2E Tests
     runs-on: ubuntu-latest
@@ -76,8 +99,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "21.4"
+          node-version: "18"
           cache: 'pnpm'
+
+      - name: Install PNPM
+        run: npm install -g pnpm
 
       - name: Install project dependencies
         run: pnpm install --frozen-lockfile
