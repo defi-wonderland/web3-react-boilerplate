@@ -47,46 +47,38 @@ jobs:
   test:
    name: Lint, Unit Test, and E2E Test
    runs-on: ubuntu-latest
-
+   
    steps:
-     - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15
 
-     - name: Install Node
-       uses: actions/setup-node@v3
-       with:
-        node-version: '21.4'
-        registry-url: 'https://registry.npmjs.org'
-        cache: 'pnpm'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '21.4'
+          cache: 'pnpm'
+      
+      - run: pnpm install
 
-     - name: Install PNPM
-       run: npm install -g pnpm
+      - run: pnpm run prettier
+      
+      - run: pnpm run lint
+      
+      - run: pnpm test
 
-     - name: Install project dependencies
-       run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
+      - run: pnpm run build
 
-     - name: Run Prettier
-       run: pnpm run prettier
+      - name: Start Server for E2E Tests
+        run: pnpm run start &
+        env:
+          PORT: 3000
 
-     - name: Run Linter
-       run: pnpm run lint
+      - run: sleep 30
 
-     - name: Run Unit Tests
-       run: pnpm test
-
-     - name: Build project for production
-       run: pnpm run build
-
-     - name: Start Server for E2E Tests
-       run: pnpm exec next start -p ${{ env.PORT }} &
-       env:
-        PORT: 3000
-
-     - name: Sleep for 30s
-       run: sleep 30
-
-     - name: Cypress E2E Tests
-       uses: cypress-io/github-action@v2
-       with:
-        wait-on: 'http://localhost:3000'
-        wait-on-timeout: 60
-
+      - name: Cypress E2E Tests
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 60
