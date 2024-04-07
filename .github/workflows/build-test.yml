@@ -45,40 +45,36 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-   name: Lint, Unit Test, and E2E Test
-   runs-on: ubuntu-latest
-   
-   steps:
-      - uses: actions/checkout@v4
-      
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.15
+    name: Lint, Unit Test, and E2E Test
+    runs-on: ubuntu-latest
+  
+    steps:
+     - uses: actions/checkout@v4
+    
+     - uses: pnpm/action-setup@v2
+       with:
+         version: 8.15
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '21.4'
-          cache: 'pnpm'
-      
-      - run: pnpm install
+     - uses: actions/setup-node@v4
+       with:
+        node-version: '21.4'
+        cache: 'pnpm'
+    
+     - name: Install project dependencies
+       run: pnpm install
 
-      - run: pnpm run prettier
-      
-      - run: pnpm run lint
-      
-      - run: pnpm test
+     - name: Run Prettier
+       run: pnpm run prettier
+    
+     - name: Run Linter
+       run: pnpm run lint
+    
+     - name: Cypress E2E Tests
+       uses: cypress-io/github-action@v2
+       with:
+        command: pnpm test
+        cache-key: ${{ runner.os }}-build-${{ hashFiles('**/pnpm-lock.yaml') }}
+        install-command: pnpm install --frozen-lockfile
+        wait-on: 'http://localhost:3000'
+        wait-on-timeout: 60
 
-      - run: pnpm run build
-
-      - name: Start Server for E2E Tests
-        run: pnpm run start &
-        env:
-          PORT: 3000
-
-      - run: sleep 30
-
-      - name: Cypress E2E Tests
-        uses: cypress-io/github-action@v2
-        with:
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 60
