@@ -11,17 +11,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "preview": "next start",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "yarn run lint -- --fix",
+    "lint:fix": "pnpm run lint -- --fix",
     "prettier": "prettier src --check",
-    "prettier:fix": "yarn run prettier -- --write",
-    "format": "yarn run prettier:fix && yarn run lint:fix",
-    "format:check": "yarn run prettier && yarn run lint",
+    "prettier:fix": "pnpm run prettier -- --write",
+    "format": "pnpm run prettier:fix && yarn run lint:fix",
+    "format:check": "pnpm run prettier && yarn run lint",
     "prepare": "husky install && wonderland-crypto-husky-checks install",
-    "test": "yarn cypress run",
-    "test:watch": "yarn cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "start-server-and-test start http://localhost:3000 'pnpm run cypress:run'"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
@@ -68,6 +69,7 @@
     "jsdom": "24.0.0",
     "lodash.merge": "4.6.2",
     "prettier": "3.0.3",
+    "start-server-and-test": "2.0.3",
     "styled-components": "6.0.7",
     "typescript": "5.4.2"
   }

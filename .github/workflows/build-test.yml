@@ -44,10 +44,10 @@ jobs:
           only_notify: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  test:
-    name: Lint, E2E Test
+   test:
+    name: Lint and Test
     runs-on: ubuntu-latest
-  
+
     steps:
      - uses: actions/checkout@v4
     
@@ -63,17 +63,10 @@ jobs:
      - name: Install Dependencies
        run: pnpm install
 
-     - name: Build
-       run: pnpm build
+    - name: Build the project
+      run: pnpm run build
 
-     - name: Start
-       run: pnpm start &
-       shell: bash
-
-     - name: Cypress run
-       uses: cypress-io/github-action@v3
-       with:
-        project: ./cypress
-        browser: chrome
-        start: ''
-        wait-on: "http://localhost:3000"
+    - name: Run Tests
+      run: pnpm run test
+      env:
+        CI: true
