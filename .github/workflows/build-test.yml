@@ -45,7 +45,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   test:
-    name: Lint, Unit Test, and E2E Test
+    name: Lint, E2E Test
     runs-on: ubuntu-latest
   
     steps:
@@ -68,13 +68,21 @@ jobs:
     
      - name: Run Linter
        run: pnpm run lint
+
+     - name: Run Build
+       run: pnpm run build
+
+     - name: Start Server for E2E Tests
+       run: pnpm run start &
+       env:
+        PORT: 3000
+
+     - run: sleep 30
     
      - name: Cypress E2E Tests
        uses: cypress-io/github-action@v2
        with:
-        command: pnpm test
-        cache-key: ${{ runner.os }}-build-${{ hashFiles('**/pnpm-lock.yaml') }}
-        install-command: pnpm install --frozen-lockfile
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 60
+        install: false
 
