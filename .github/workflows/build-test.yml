@@ -49,14 +49,29 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+     - name: Checkout
+       uses: actions/checkout@v2
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v3
-        with:
-          project: ./cypress
-          browser: chrome
-          build: pnpm build
-          start: pnpm start
-          wait-on: "http://localhost:3000"
+     - name: Set up Node.js
+       uses: actions/setup-node@v2
+       with:
+        node-version: '21.4'
+        cache: 'pnpm'
+
+     - name: Install Dependencies
+       run: pnpm install
+
+     - name: Build
+       run: pnpm build
+
+     - name: Start
+       run: pnpm start &
+       shell: bash
+
+     - name: Cypress run
+       uses: cypress-io/github-action@v3
+       with:
+        project: ./cypress
+        browser: chrome
+        start: ''
+        wait-on: "http://localhost:3000"
