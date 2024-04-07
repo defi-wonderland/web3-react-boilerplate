@@ -49,40 +49,14 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-     - uses: actions/checkout@v4
-    
-     - uses: pnpm/action-setup@v2
-       with:
-         version: 8.15
+      - name: Checkout
+        uses: actions/checkout@v2
 
-     - uses: actions/setup-node@v4
-       with:
-        node-version: '21.4'
-        cache: 'pnpm'
-    
-     - name: Install project dependencies
-       run: pnpm install
-
-     - name: Run Prettier
-       run: pnpm run prettier
-    
-     - name: Run Linter
-       run: pnpm run lint
-
-     - name: Run Build
-       run: pnpm run build
-
-     - name: Start Server for E2E Tests
-       run: pnpm run start &
-       env:
-        PORT: 3000
-
-     - run: sleep 30
-    
-     - name: Cypress E2E Tests
-       uses: cypress-io/github-action@v2
-       with:
-        wait-on: 'http://localhost:3000'
-        wait-on-timeout: 60
-        install: false
-
+      - name: Cypress run
+        uses: cypress-io/github-action@v3
+        with:
+          project: ./cypress
+          browser: chrome
+          build: pnpm build
+          start: pnpm start
+          wait-on: "http://localhost:3000"
