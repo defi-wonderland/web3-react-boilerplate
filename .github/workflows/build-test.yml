@@ -65,6 +65,12 @@ jobs:
 
       - name: Build the project
         run: pnpm run build
+      
+      - name: Run Prettier
+        run: pnpm prettier
+
+      - name: Run Linter
+        run: pnpm lint
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
