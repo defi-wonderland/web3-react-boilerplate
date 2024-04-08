@@ -49,24 +49,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - uses: actions/checkout@v4
-    
-     - uses: pnpm/action-setup@v2
-       with:
-         version: 8.15
+      - uses: actions/checkout@v4
 
-     - uses: actions/setup-node@v4
-       with:
-        node-version: '21.4'
-        cache: 'pnpm'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15
 
-     - name: Install Dependencies
-       run: pnpm install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '21.4'
+          cache: 'pnpm'
 
-     - name: Build the project
-       run: pnpm run build
+      - name: Install Dependencies
+        run: pnpm install
 
-     - name: Run Tests
-       run: pnpm run test
-       env:
-        CI: true
+      - name: Build the project
+        run: pnpm run build
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: pnpm start, pnpm test
