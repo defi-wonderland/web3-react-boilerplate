@@ -32,15 +32,8 @@ const MainContent = styled(Box)`
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-
-  max-width: 120rem;
-  padding: 0 4rem;
-  min-height: 100vh;
+  min-height: 100%;
   margin: 0 auto;
-
-  @media (max-width: 600px) {
-    padding: 0 1.6rem;
-  }
 `;
 
 const NoScriptMessage = styled('noscript')(() => {

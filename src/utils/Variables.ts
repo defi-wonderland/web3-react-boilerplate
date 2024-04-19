@@ -20,3 +20,14 @@ export const fontSize = {
   MEDIUM: '1.4rem',
   SMALL: '1.2rem',
 };
+
+export const zIndex = {
+  HEADER: 100,
+  MODAL: 200,
+  BACKDROP: -1,
+  TOAST: 500,
+};
+
+export const HEADER_HEIGHT = 8; // Header height in rem units
+export const FOOTER_HEIGHT = 8; // Footer height in rem units
+export const MAIN_HEIGHT = HEADER_HEIGHT + FOOTER_HEIGHT;
