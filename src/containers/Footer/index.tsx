@@ -1,4 +1,7 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
+import { useCustomTheme } from '~/hooks/useTheme';
+
+import { FOOTER_HEIGHT } from '~/utils';
 
 export const Footer = () => {
   return (
@@ -12,29 +15,29 @@ export const Footer = () => {
   );
 };
 
-const FooterContainer = styled.div`
-  display: flex;
-  height: 8rem;
-  padding: 0 8rem;
-  align-items: center;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.headerBackground};
-  border-top: ${({ theme }) => theme.border};
-  width: 100%;
-  max-width: 100vw;
-`;
+const FooterContainer = styled('footer')(() => {
+  const { currentTheme } = useCustomTheme();
+  return {
+    display: 'flex',
+    height: `${FOOTER_HEIGHT}rem`,
+    padding: '0 8rem',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: currentTheme.backgroundSecondary,
+    borderTop: currentTheme.border,
+    width: '100%',
+  };
+});
 
-const Subtitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-
-  p {
-    display: inline-block;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
+const Subtitle = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  '& p': {
+    display: 'inline-block',
+  },
+  '& a': {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+});

@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Format
 
 on:
   pull_request:
@@ -10,32 +10,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: "18.7"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: '21.4'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
 
       - name: Install project dependencies
-        run: yarn --prefer-offline
-        id: install
+        run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
 
       - name: Build project dependencies
-        run: yarn run build
-        id: build
+        run: pnpm run build
+        env:
+          NEXT_PUBLIC_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_PROJECT_ID }}
 
   check:
     name: Check for crypto
@@ -58,32 +50,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: "18.7"
-          registry-url: "https://registry.npmjs.org"
+          version: 8.15
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      - uses: actions/setup-node@v4
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: '21.4'
+          cache: 'pnpm'
 
-      - name: Install project dependencies
-        run: yarn --prefer-offline
-        id: install
+      - name: Install Dependencies
+        run: pnpm install
 
+      - name: Build the project
+        run: pnpm run build
+      
       - name: Run Prettier
-        run: yarn prettier
+        run: pnpm prettier
 
       - name: Run Linter
-        run: yarn lint
+        run: pnpm lint
 
-      - name: Run Tests
-        run: yarn test
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: pnpm start, pnpm test

@@ -1,3 +1,3 @@
 export * from './rainbowTheme';
 export * from './theme';
-export * from './Themable';
+export * from './muiThemeConfig';

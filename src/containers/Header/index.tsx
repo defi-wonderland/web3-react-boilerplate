@@ -1,48 +1,46 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
+import { IconButton } from '@mui/material';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-import { useStateContext } from '~/hooks';
-import { THEME_KEY } from '~/utils';
+import { useCustomTheme } from '~/hooks/useTheme';
+import { zIndex, HEADER_HEIGHT } from '~/utils';
 
 export const Header = () => {
-  const { setTheme, theme } = useStateContext();
-
-  const handleThemeChange = () => {
-    if (theme === 'light') {
-      localStorage.setItem(THEME_KEY, 'dark');
-      setTheme('dark');
-    } else {
-      localStorage.setItem(THEME_KEY, 'light');
-      setTheme('light');
-    }
-  };
+  const { changeTheme, theme } = useCustomTheme();
 
   return (
-    <HeaderContainer>
-      <h1>Logo</h1>
-      <ThemeButton onClick={handleThemeChange}>{theme === 'dark' ? '🌞' : '🌕'}</ThemeButton>
+    <StyledHeader>
+      <Logo>Logo</Logo>
+      <SIconButton onClick={changeTheme}>{theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}</SIconButton>
       <ConnectButton />
-    </HeaderContainer>
+    </StyledHeader>
   );
 };
 
-const HeaderContainer = styled.div`
-  display: flex;
-  height: 8rem;
-  padding: 0 8rem;
-  align-items: center;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.headerBackground};
-  border-bottom: ${({ theme }) => theme.border};
-  width: 100%;
-  max-width: 100vw;
-  z-index: 100;
-`;
+//Styles
+const StyledHeader = styled('header')(() => {
+  const { currentTheme } = useCustomTheme();
+  return {
+    display: 'flex',
+    height: `${HEADER_HEIGHT}rem`,
+    padding: '0 8rem',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: currentTheme.backgroundSecondary,
+    width: '100%',
+    zIndex: zIndex.HEADER,
+  };
+});
 
-const ThemeButton = styled.button`
-  background-color: inherit;
-  border: none;
-  outline: none;
-  font-size: 2.2rem;
-  cursor: pointer;
-`;
+const Logo = styled('h1')({
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+});
+
+const SIconButton = styled(IconButton)({
+  position: 'absolute',
+  left: '50%',
+});
