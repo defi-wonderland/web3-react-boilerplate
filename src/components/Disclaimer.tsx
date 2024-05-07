@@ -19,13 +19,13 @@ export const Container = styled(Box)`
   align-items: center;
   justify-content: center;
   padding: 1rem 1.6rem;
-  min-height: ${DISCLAIMER_HEIGHT};
+  height: ${DISCLAIMER_HEIGHT}rem;
   width: 100%;
   margin: 0 auto;
   background-color: white;
 
   h1 {
-    font-size: 1.6rem;
+    font-size: 1rem;
     color: #121212;
     font-weight: 500;
     letter-spacing: 1;
