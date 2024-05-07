@@ -1,5 +1,7 @@
 import { styled, Box, Typography } from '@mui/material';
 
+import { DISCLAIMER_HEIGHT } from '~/utils';
+
 export const Disclaimer = () => {
   return (
     <Container>
@@ -17,7 +19,7 @@ export const Container = styled(Box)`
   align-items: center;
   justify-content: center;
   padding: 1rem 1.6rem;
-  min-height: 4rem;
+  min-height: ${DISCLAIMER_HEIGHT};
   width: 100%;
   margin: 0 auto;
   background-color: white;
@@ -27,5 +29,8 @@ export const Container = styled(Box)`
     color: #121212;
     font-weight: 500;
     letter-spacing: 1;
+    @media (max-width: 720px) {
+      font-size: 0.8rem;
+    }
   }
 `;
