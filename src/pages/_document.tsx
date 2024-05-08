@@ -24,7 +24,9 @@ export default function MyDocument(props: DocumentProps & DocumentHeadTagsProps)
         <meta name='twitter:description' content={descriptionText} />
 
         <meta name='twitter:image' content={bannerImage} />
-        <meta name='robots' content='index, follow' />
+
+        {/* To prevent all search engines from indexing */}
+        <meta name='robots' content='noindex' />
       </Head>
       <body>
         <Main />
