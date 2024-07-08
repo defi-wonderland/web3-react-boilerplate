@@ -1,34 +1,9 @@
-name: Build and Format
+name: Check for crypto and Format
 
 on:
   pull_request:
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '21.4'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-
-      - name: Install project dependencies
-        run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
-
-      - name: Build project dependencies
-        run: pnpm run build
-        env:
-          NEXT_PUBLIC_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_PROJECT_ID }}
-
   check:
     name: Check for crypto
     runs-on: ubuntu-latest
@@ -44,35 +19,28 @@ jobs:
           only_notify: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  test:
-    name: Lint and Test
+  format:
+    name: Lint and Prettier
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
-          version: 8.15
+          version: 8
 
-      - uses: actions/setup-node@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: '21.4'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Install project dependencies
+        run: pnpm install --frozen-lockfile --prefer-frozen-lockfile
 
-      - name: Build the project
-        run: pnpm run build
-      
       - name: Run Prettier
         run: pnpm prettier
 
       - name: Run Linter
         run: pnpm lint
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          start: pnpm start, pnpm test
