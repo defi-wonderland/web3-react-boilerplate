@@ -1,0 +1,32 @@
+name: E2E and Unit Tests
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo "NEXT_PUBLIC_RPC_URL=${{ secrets.NEXT_PUBLIC_RPC_URL }}" >> .env
+          echo "NEXT_PUBLIC_PROJECT_ID=${{ secrets.NEXT_PUBLIC_PROJECT_ID }}" >> .env
+          echo "NEXT_PUBLIC_ALCHEMY_KEY=${{ secrets.NEXT_PUBLIC_ALCHEMY_KEY }}" >> .env
+
+      - name: run Cypress and Jest
+        uses: cypress-io/github-action@v6
+        with:
+          build: pnpm build
+          start: pnpm start
+          wait-on: 'http://localhost:3000'
+          command: pnpm test
