@@ -33,8 +33,7 @@ Available scripts that can be run using `pnpm`:
 | `prettier:fix` | Format code using Prettier and automatically fix issues.     |
 | `format`       | Run Prettier and ESLint to format and fix code issues.       |
 | `format:check` | Check code formatting and linting without making changes.    |
-| `test`         | Run tests using Cypress                                 |
-| `test:watch`   | Run Cypress in watch mode.                                    |
+| `test`         | Run tests using Cypress and Jest                             |
 
 ## Technologies Used
 
