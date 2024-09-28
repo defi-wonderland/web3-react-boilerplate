@@ -19,7 +19,7 @@
     "prettier:fix": "pnpm run prettier -- --write",
     "format": "pnpm run prettier:fix && yarn run lint:fix",
     "format:check": "pnpm run prettier && yarn run lint",
-    "prepare": "husky install && wonderland-crypto-husky-checks install",
+    "prepare": "husky && wonderland-crypto-husky-checks install",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "test:e2e": "pnpm cypress run",
