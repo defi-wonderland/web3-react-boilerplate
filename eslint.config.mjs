@@ -25,6 +25,7 @@ export default [
   },
   ...fixupConfigRules(
     compat.extends(
+      'prettier',
       'plugin:react/recommended',
       'plugin:jsx-a11y/recommended',
       'plugin:@typescript-eslint/recommended',
@@ -60,9 +61,9 @@ export default [
           },
         },
       ],
-      'import/no-duplicates': 'error',
       // Prettier plugin to apply formatting rules
       'prettier/prettier': 'error', // This tells ESLint to show Prettier errors as ESLint errors
+      '@typescript-eslint/no-empty-object-type': 'none',
     },
     settings: {
       // Spread Prettier config to disable conflicting ESLint rules
