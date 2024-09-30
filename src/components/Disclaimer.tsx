@@ -1,4 +1,4 @@
-import { styled, Box, Typography } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 
 import { DISCLAIMER_HEIGHT } from '~/utils';
 
@@ -13,7 +13,7 @@ export const Disclaimer = () => {
   );
 };
 
-export const Container = styled(Box)`
+export const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
