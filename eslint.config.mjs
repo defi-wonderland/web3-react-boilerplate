@@ -63,7 +63,8 @@ export default [
       ],
       // Prettier plugin to apply formatting rules
       'prettier/prettier': 'error', // This tells ESLint to show Prettier errors as ESLint errors
-      '@typescript-eslint/no-empty-object-type': 'none',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-empty-interface': 'off',
     },
     settings: {
       // Spread Prettier config to disable conflicting ESLint rules
