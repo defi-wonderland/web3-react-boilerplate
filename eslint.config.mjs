@@ -25,20 +25,17 @@ export default [
   },
   ...fixupConfigRules(
     compat.extends(
-      'prettier',
-      'eslint:recommended',
       'plugin:react/recommended',
       'plugin:jsx-a11y/recommended',
       'plugin:@typescript-eslint/recommended',
       'plugin:import/typescript',
       'plugin:react/jsx-runtime',
       'plugin:react-hooks/recommended',
-      'plugin:prettier/recommended',
       'plugin:@next/next/recommended',
     ),
   ),
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
     plugins: {
       'react-refresh': reactRefresh,
       import: fixupPluginRules(importPlugin),
