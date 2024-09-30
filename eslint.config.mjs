@@ -52,13 +52,25 @@ export default [
       'import/order': [
         'error',
         {
-          // Enforce a specific import order
-          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
+          'newlines-between': 'never',
           alphabetize: {
             order: 'asc',
             caseInsensitive: false,
           },
+          // Enforce a specific import order
+          groups: ['external', 'builtin', 'parent', 'sibling', 'index'],
+          pathGroups: [
+            {
+              pattern: '@(react|react-native)',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '@src/**',
+              group: 'internal',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['internal', 'react'],
         },
       ],
       // Prettier plugin to apply formatting rules

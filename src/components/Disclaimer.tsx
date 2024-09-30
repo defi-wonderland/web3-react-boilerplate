@@ -1,5 +1,4 @@
 import { styled, Typography } from '@mui/material';
-
 import { DISCLAIMER_HEIGHT } from '~/utils';
 
 export const Disclaimer = () => {
