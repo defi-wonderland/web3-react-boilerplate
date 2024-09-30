@@ -58,6 +58,15 @@ devDependencies:
   '@defi-wonderland/crypto-husky-checks':
     specifier: 1.4.0
     version: 1.4.0
+  '@eslint/compat':
+    specifier: 1.1.1
+    version: 1.1.1
+  '@eslint/eslintrc':
+    specifier: 3.1.0
+    version: 3.1.0
+  '@eslint/js':
+    specifier: 9.11.1
+    version: 9.11.1
   '@jest/globals':
     specifier: 29.7.0
     version: 29.7.0
@@ -118,6 +127,9 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: 0.4.12
     version: 0.4.12(eslint@9.11.1)
+  globals:
+    specifier: 15.9.0
+    version: 15.9.0
   husky:
     specifier: 9.1.6
     version: 9.1.6
@@ -1837,6 +1849,11 @@ packages:
   /@eslint-community/regexpp@4.11.1:
     resolution: {integrity: sha512-m4DVN9ZqskZoLU5GlWZadwDnYo3vAEydiUayB9widCl9ffWx2IvPnp6n3on5rJmziJSw9Bv+Z3ChDVdMwXCY8Q==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
+    dev: true
+
+  /@eslint/compat@1.1.1:
+    resolution: {integrity: sha512-lpHyRyplhGPL5mGEh6M9O5nnKk0Gz4bFI+Zu6tKlPpDUN7XshWvH9C/px4UVm87IAANE0W81CEsNGbS1KlzXpA==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     dev: true
 
   /@eslint/config-array@0.18.0:
@@ -7134,6 +7151,11 @@ packages:
 
   /globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
+    engines: {node: '>=18'}
+    dev: true
+
+  /globals@15.9.0:
+    resolution: {integrity: sha512-SmSKyLLKFbSr6rptvP8izbyxJL4ILwqO9Jg23UA0sDlGlu58V59D1//I3vlc0KJphVdUR7vMjHIplYnzBxorQA==}
     engines: {node: '>=18'}
     dev: true
 
