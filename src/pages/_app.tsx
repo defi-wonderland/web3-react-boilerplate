@@ -1,6 +1,8 @@
 import { AppProps } from 'next/app';
-import { Providers } from '~/providers';
+
 import Layout from './layout';
+
+import { Providers } from '~/providers';
 
 const Home = ({ Component, pageProps }: AppProps) => {
   return (

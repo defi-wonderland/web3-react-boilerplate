@@ -1,4 +1,5 @@
 import { expect } from '@jest/globals';
+
 import { truncateAddress } from '../utils/format';
 
 describe('truncateAddress', () => {
