@@ -1,9 +1,8 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { styled } from '@mui/material/styles';
-import { IconButton } from '@mui/material';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useCustomTheme } from '~/hooks/useTheme';
 import { zIndex, HEADER_HEIGHT } from '~/utils';
 

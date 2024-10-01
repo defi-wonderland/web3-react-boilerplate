@@ -1,5 +1,4 @@
-import { Box, CssBaseline, styled } from '@mui/material';
-
+import { CssBaseline, styled } from '@mui/material';
 import { Disclaimer } from '~/components';
 import { Footer, Header } from '~/containers';
 
@@ -28,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-const MainContent = styled(Box)`
+const MainContent = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;

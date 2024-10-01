@@ -5,7 +5,7 @@ export interface Env {
 }
 
 export interface Constants {
-  // ...
+  //...
 }
 
 export interface Config extends Env, Constants {}

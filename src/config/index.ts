@@ -1,10 +1,8 @@
-import { Config } from '~/types';
-
-import { getEnv } from './env';
-import { getConstants } from './constants';
-
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
+import { Config } from '~/types';
+import { getConstants } from './constants';
+import { getEnv } from './env';
 
 // this provider if for load data when the user is disconnected
 export const publicClient = createPublicClient({

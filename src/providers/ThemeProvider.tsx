@@ -1,8 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
-
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { getMuiThemeConfig } from '~/components';
-
 import { Theme, ThemeName } from '~/types';
 import { THEME_KEY, getTheme } from '~/utils';
 
