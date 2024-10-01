@@ -1,10 +1,10 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export function useScrollToTop() {
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleRouteChange = () => {
       window.scrollTo(0, 0);
     };
@@ -14,4 +14,6 @@ export function useScrollToTop() {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  return null;
 }

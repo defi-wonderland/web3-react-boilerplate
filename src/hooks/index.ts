@@ -1,2 +1,2 @@
-export * from './useScrollToTop';
+export * from './ScrollToTop';
 export * from './useStateContext';
