@@ -58,19 +58,35 @@ export default [
             caseInsensitive: false,
           },
           // Enforce a specific import order
-          groups: ['external', 'builtin', 'parent', 'sibling', 'index'],
+          groups: ['external', 'builtin', 'parent', 'sibling', 'index', 'object', 'type', 'unknown'],
           pathGroups: [
             {
-              pattern: '@(react|react-native)',
+              pattern: 'react',
               group: 'external',
               position: 'before',
             },
             {
-              pattern: '@src/**',
-              group: 'internal',
+              pattern: 'next',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: 'next/**',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '~/assets/**',
+              group: 'unknown',
+              position: 'after',
+            },
+            {
+              pattern: '~/**',
+              group: 'parent',
+              position: 'before',
             },
           ],
-          pathGroupsExcludedImportTypes: ['internal', 'react'],
+          pathGroupsExcludedImportTypes: ['react'],
         },
       ],
       // Prettier plugin to apply formatting rules
