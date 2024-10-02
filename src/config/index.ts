@@ -1,6 +1,7 @@
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { Config } from '~/types';
+import { getCustomThemes } from './Theme';
 import { getConstants } from './constants';
 import { getEnv } from './env';
 
@@ -13,4 +14,5 @@ export const publicClient = createPublicClient({
 export const getConfig = (): Config => ({
   ...getEnv(),
   ...getConstants(),
+  ...getCustomThemes(),
 });

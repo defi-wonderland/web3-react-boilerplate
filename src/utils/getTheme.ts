@@ -1,13 +1,15 @@
-import { darkTheme, lightTheme } from '~/components/Theme';
+import { getConfig } from '~/config';
 import { Theme, ThemeName } from '~/types';
 
 export const getTheme = (theme?: ThemeName): Theme => {
+  const { dark, light } = getConfig().main;
+
   switch (theme) {
     case 'light':
-      return lightTheme;
+      return light;
     case 'dark':
-      return darkTheme;
+      return dark;
     default:
-      return lightTheme;
+      return light;
   }
 };
