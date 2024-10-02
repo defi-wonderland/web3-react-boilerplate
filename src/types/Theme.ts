@@ -21,7 +21,7 @@ export interface PropTheme {
   theme: Theme;
 }
 
-export interface CutomThemes {
+export interface CustomThemes {
   main: {
     light: Theme;
     dark: Theme;
