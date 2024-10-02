@@ -4,7 +4,7 @@ import { createConfig, http, cookieStorage, createStorage } from 'wagmi';
 import { localhost, sepolia } from 'wagmi/chains';
 import { getConfig } from '~/config';
 
-const { PROJECT_ID } = getConfig();
+const { PROJECT_ID } = getConfig().env;
 
 const getWallets = () => {
   if (PROJECT_ID) {

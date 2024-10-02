@@ -8,7 +8,7 @@ export const getCustomThemes = () => {
       light: lightTheme,
       dark: darkTheme,
     },
-    mui: getMuiThemeConfig,
+    getMui: getMuiThemeConfig,
     rainbow: rainbowTheme,
   };
 };

@@ -26,6 +26,6 @@ export interface CustomThemes {
     light: Theme;
     dark: Theme;
   };
-  mui: (currentTheme: Theme, themeName: ThemeName) => MuiTheme;
+  getMui: (currentTheme: Theme, themeName: ThemeName) => MuiTheme;
   rainbow: RainbowTheme;
 }

@@ -12,7 +12,7 @@ export const publicClient = createPublicClient({
 });
 
 export const getConfig = (): Config => ({
-  ...getEnv(),
-  ...getConstants(),
-  ...getCustomThemes(),
+  env: getEnv(),
+  constants: getConstants(),
+  customThemes: getCustomThemes(),
 });

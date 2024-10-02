@@ -17,7 +17,7 @@ interface StateProps {
 export const ThemeContext = createContext({} as ContextType);
 
 export const ThemeProvider = ({ children }: StateProps) => {
-  const getMuiThemeConfig = getConfig().mui;
+  const { getMui: getMuiThemeConfig } = getConfig().customThemes;
 
   const defaultTheme = 'dark';
 

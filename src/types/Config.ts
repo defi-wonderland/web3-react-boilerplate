@@ -10,4 +10,8 @@ export interface Constants {
   //...
 }
 
-export interface Config extends Env, Constants, CustomThemes {}
+export interface Config {
+  env: Env;
+  constants: Constants;
+  customThemes: CustomThemes;
+}
