@@ -1,2 +1,2 @@
-export * from './Configs';
-export * from './Themes';
+export * from './config';
+export * from './theme';
