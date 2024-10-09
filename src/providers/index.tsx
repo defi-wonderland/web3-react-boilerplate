@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-
 import { StateProvider } from './StateProvider';
 import { ThemeProvider } from './ThemeProvider';
 import { WalletProvider } from './WalletProvider';

@@ -1,5 +1,4 @@
 import Head from 'next/head';
-
 import { Landing } from '~/containers';
 
 const Home = () => {

@@ -1,3 +1,6 @@
+import { Theme as MuiTheme } from '@mui/material';
+import { Theme as RainbowTheme } from '@rainbow-me/rainbowkit';
+
 export type ThemeName = 'light' | 'dark';
 
 export interface Theme {
@@ -16,4 +19,13 @@ export interface Theme {
 
 export interface PropTheme {
   theme: Theme;
+}
+
+export interface CustomThemes {
+  main: {
+    light: Theme;
+    dark: Theme;
+  };
+  getMui: (currentTheme: Theme, themeName: ThemeName) => MuiTheme;
+  rainbow: RainbowTheme;
 }

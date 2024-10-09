@@ -1,6 +1,6 @@
+import { DocumentContext, DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 import { DocumentHeadTags, documentGetInitialProps } from '@mui/material-nextjs/v13-pagesRouter';
 import type { DocumentHeadTagsProps } from '@mui/material-nextjs/v13-pagesRouter';
-import { DocumentContext, DocumentProps, Head, Html, Main, NextScript } from 'next/document';
 
 export default function MyDocument(props: DocumentProps & DocumentHeadTagsProps) {
   const descriptionText = 'Web3 Boilerplate by Wonderland.';

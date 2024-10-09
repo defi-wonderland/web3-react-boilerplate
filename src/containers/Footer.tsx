@@ -1,6 +1,5 @@
 import { styled } from '@mui/material/styles';
 import { useCustomTheme } from '~/hooks/useTheme';
-
 import { FOOTER_HEIGHT } from '~/utils';
 
 export const Footer = () => {

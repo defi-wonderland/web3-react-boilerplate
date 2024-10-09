@@ -1,14 +1,12 @@
-import type { ReactNode } from 'react';
-
-import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
-
 import { config } from '../utils';
 
+import '@rainbow-me/rainbowkit/styles.css';
+
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 const queryClient = new QueryClient();
